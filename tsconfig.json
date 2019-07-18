@@ -12,7 +12,7 @@
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./lib"
   },
   "files": [
     "src/index.ts"
