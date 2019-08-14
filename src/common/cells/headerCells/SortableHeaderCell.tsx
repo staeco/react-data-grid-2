@@ -2,11 +2,12 @@ import React from 'react';
 import { isElement } from 'react-is';
 import { HeaderRowType, DEFINE_SORT } from '../../enums';
 import { CalculatedColumn } from '../../types';
+import { FaCaretDown, FaCaretUp } from 'react-icons/fa'
 
 const SORT_TEXT = {
-  [DEFINE_SORT.ASC]: '\u25B2',
-  [DEFINE_SORT.DESC]: '\u25BC',
-  [DEFINE_SORT.NONE]: ''
+  [DEFINE_SORT.ASC]: () => <FaCaretDown size={18} />,
+  [DEFINE_SORT.DESC]: () => <FaCaretUp size={18} />,
+  [DEFINE_SORT.NONE]: () => null
 } as const;
 
 export interface Props {
@@ -43,7 +44,8 @@ export default function SortableHeaderCell(props: Props) {
       ? React.cloneElement(headerRenderer, { column })
       : React.createElement(headerRenderer, { column, rowType });
 
-  const sortArrow = <span className="pull-right">{SORT_TEXT[sortDirection]}</span>;
+  const icon = SORT_TEXT[sortDirection];
+  const sortArrow = <span className="pull-right">{icon()}</span>;
   return (
     <div className="rdg-sortable-header-cell" onClick={onClick}>
       {sortHandlePosition === 'before' && sortArrow}
