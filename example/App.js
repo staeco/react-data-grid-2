@@ -44,13 +44,14 @@ export default class App extends PureComponent {
           rows: updated,
           loading: false,
         })
-      }, 2000)
+      }, 1000)
     })
   }
   render = () => {
     const rowGetter = (i) => this.state.rows[i]
     return (
       <div className="app">
+        <h3>Sort with a 2s delay replicating "network" actions</h3>
         <Grid
           columns={columns}
           rowGetter={rowGetter}
