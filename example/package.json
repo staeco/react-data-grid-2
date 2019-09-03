@@ -6,7 +6,7 @@
   },
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build --public-url /example/dist index.html"
+    "build": "rm -rf dist && parcel build --public-url /react-data-grid-2/example/dist index.html"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

@@ -162,4 +162,4 @@ var t,e=arguments[3];!function(e,r){"object"==typeof exports&&"undefined"!=typeo
 },{"react":"HdMw","../lib":"VNNP","../dist/react-data-grid.css":"KniP","./app.sass":"KniP"}],"Focm":[function(require,module,exports) {
 "use strict";var e=u(require("react")),r=require("react-dom"),t=u(require("./App"));function u(e){return e&&e.__esModule?e:{default:e}}(0,r.render)(e.default.createElement(t.default,null),document.getElementById("app"));
 },{"react":"HdMw","react-dom":"X9zx","./App":"lY9v"}]},{},["Focm"], null)
-//# sourceMappingURL=/example/dist/example.d8fa3f35.js.map
+//# sourceMappingURL=/react-data-grid-2/example/dist/example.d8fa3f35.js.map
