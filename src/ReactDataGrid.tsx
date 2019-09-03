@@ -409,12 +409,11 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   };
 
   handleSort = (sortColumn: string, sortDirection: DEFINE_SORT) => {
-    this.setState({ sortColumn, sortDirection }, () => {
-      const { onGridSort } = this.props;
-      if (onGridSort) {
-        onGridSort(sortColumn, sortDirection);
-      }
-    });
+    const { onGridSort } = this.props;
+    if (onGridSort) {
+      return onGridSort(sortColumn, sortDirection);
+    }
+    this.setState({ sortColumn, sortDirection });
   };
 
   getSelectedRow(rows: RowData[], key: unknown) {
@@ -710,8 +709,8 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
           selectedRows={this.getSelectedRows()}
           rowSelection={this.getRowSelectionProps()}
           rowOffsetHeight={this.getRowOffsetHeight()}
-          sortColumn={this.state.sortColumn}
-          sortDirection={this.state.sortDirection}
+          sortColumn={this.props.sortColumn || this.state.sortColumn}
+          sortDirection={this.props.sortDirection || this.state.sortDirection}
           onSort={this.handleSort}
           minHeight={this.props.minHeight}
           totalWidth={gridWidth}
