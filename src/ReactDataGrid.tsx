@@ -221,6 +221,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   private readonly _keysDown = new Set<number>();
   private _cachedColumns?: ColumnList;
   private _cachedComputedColumns?: ColumnList;
+  private _metricRefresh?: number;
 
   constructor(props: DataGridProps) {
     super(props);
@@ -239,6 +240,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   }
 
   componentDidMount() {
+    this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
     window.addEventListener('resize', this.metricsUpdated);
     if (this.props.cellRangeSelection) {
       window.addEventListener('mouseup', this.handleWindowMouseUp);
@@ -247,11 +249,12 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   }
 
   componentWillUnmount() {
+    clearInterval(this._metricRefresh);
     window.removeEventListener('resize', this.metricsUpdated);
     window.removeEventListener('mouseup', this.handleWindowMouseUp);
   }
 
-  componentWillReceiveProps(nextProps: DataGridProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: DataGridProps) {
     if (
       nextProps.columns && (
         !sameColumns(this.props.columns, nextProps.columns, this.props.columnEquality)
@@ -684,7 +687,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
     return (
       <div
         className="react-grid-Container"
-        style={{ width: containerWidth }}
+        style={{ width: containerWidth, minHeight: this.props.minHeight }}
         ref={this.grid}
       >
         <ToolbarContainer

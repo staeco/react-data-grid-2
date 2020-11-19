@@ -83,7 +83,7 @@ export default class Canvas extends React.PureComponent<CanvasProps> {
     this.unsubscribeScrollToColumn!();
   }
 
-  componentDidUpdate(prevProps: CanvasProps) {
+  UNSAFE_componentDidUpdate(prevProps: CanvasProps) {
     const { scrollToRowIndex } = this.props;
     if (scrollToRowIndex && prevProps.scrollToRowIndex !== scrollToRowIndex) {
       this.scrollToRow(scrollToRowIndex);

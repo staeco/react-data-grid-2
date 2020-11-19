@@ -90,7 +90,7 @@ export default class Grid extends React.Component<GridProps> {
     this._onScroll();
   }
 
-  componentDidUpdate() {
+  UNSAFE_componentDidUpdate() {
     this._onScroll();
   }
 

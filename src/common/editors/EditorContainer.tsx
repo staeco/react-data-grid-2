@@ -47,7 +47,7 @@ export default class EditorContainer extends React.Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
+  UNSAFE_componentDidUpdate(prevProps: Props) {
     if (prevProps.scrollLeft !== this.props.scrollLeft || prevProps.scrollTop !== this.props.scrollTop) {
       this.commitCancel();
     }

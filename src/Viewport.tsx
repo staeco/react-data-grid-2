@@ -95,6 +95,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   private readonly canvas = React.createRef<Canvas>();
   private readonly viewport = React.createRef<HTMLDivElement>();
   private resetScrollStateTimeoutId: number | null = null;
+  private _metricRefresh?: number;
 
   onScroll = ({ scrollTop, scrollLeft }: ScrollPosition) => {
     const { rowHeight, rowsCount, onScroll } = this.props;
@@ -199,7 +200,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
     }
   };
 
-  componentWillReceiveProps(nextProps: ViewportProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: ViewportProps) {
     const { rowHeight, rowsCount } = nextProps;
     if (this.props.rowHeight !== nextProps.rowHeight
       || this.props.minHeight !== nextProps.minHeight) {
@@ -238,11 +239,13 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   }
 
   componentDidMount() {
+    this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
     window.addEventListener('resize', this.metricsUpdated);
     this.metricsUpdated();
   }
 
   componentWillUnmount() {
+    clearInterval(this._metricRefresh);
     window.removeEventListener('resize', this.metricsUpdated);
     this.clearScrollTimer();
   }

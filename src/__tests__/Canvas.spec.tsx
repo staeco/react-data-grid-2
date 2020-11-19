@@ -71,7 +71,7 @@ describe('Canvas Tests', () => {
     const testElementNode = wrapper.instance();
 
     jest.spyOn(testElementNode, 'setScrollLeft').mockImplementation(() => { });
-    testElementNode.componentDidUpdate(testProps);
+    testElementNode.UNSAFE_componentDidUpdate(testProps);
     expect(testElementNode.setScrollLeft).not.toHaveBeenCalled();
   });
 

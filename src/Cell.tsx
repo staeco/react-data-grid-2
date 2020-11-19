@@ -27,7 +27,7 @@ export default class Cell extends React.PureComponent<Props> implements CellRend
     this.checkScroll();
   }
 
-  componentDidUpdate(prevProps: Props) {
+  UNSAFE_componentDidUpdate(prevProps: Props) {
     if (isFrozen(prevProps.column) && !isFrozen(this.props.column)) {
       this.removeScroll();
     }
