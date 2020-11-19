@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from 'debounce';
 
 import Canvas from './Canvas';
 import {
@@ -96,7 +97,12 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   private readonly viewport = React.createRef<HTMLDivElement>();
   private resetScrollStateTimeoutId: number | null = null;
   private _metricRefresh?: number;
-
+  private _debounced: Function;
+  
+  constructor(props: ViewportProps) {
+    super(props);
+    this._debounced = debounce(this.metricsUpdated, 500);
+  }
   onScroll = ({ scrollTop, scrollLeft }: ScrollPosition) => {
     const { rowHeight, rowsCount, onScroll } = this.props;
     const nextScrollState = this.updateScroll({
@@ -186,7 +192,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
     }
 
     const { height } = this.viewport.current.getBoundingClientRect();
-
+    if (height === this.state.height) return // nothing changed
     if (height) {
       const { scrollTop, scrollLeft } = this.state;
       const { rowHeight, rowsCount } = this.props;
@@ -237,16 +243,16 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
       });
     }
   }
-
+  
   componentDidMount() {
-    this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
-    window.addEventListener('resize', this.metricsUpdated);
+    this._metricRefresh = window.setInterval(this._debounced, 500);
+    window.addEventListener('resize', this._debounced as EventListener);
     this.metricsUpdated();
   }
 
   componentWillUnmount() {
     clearInterval(this._metricRefresh);
-    window.removeEventListener('resize', this.metricsUpdated);
+    window.removeEventListener('resize', this._debounced as EventListener);
     this.clearScrollTimer();
   }
 

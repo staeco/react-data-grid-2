@@ -30,7 +30,9 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "debounce": "^1.2.0",
     "immutable": "^3.8.2",
+    "react-fast-compare": "^3.2.0",
     "react-icons": "^3.7.0",
     "react-is": "^17.0.0",
     "shallowequal": "^1.1.0",
@@ -45,6 +47,7 @@
     "@babel/runtime": "^7.4.4",
     "@testing-library/react": "^8.0.1",
     "@types/classnames": "^2.2.7",
+    "@types/debounce": "^1.2.0",
     "@types/enzyme": "^3.9.3",
     "@types/jest": "^24.0.13",
     "@types/react": "^16.8.19",

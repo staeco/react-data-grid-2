@@ -1,4 +1,6 @@
 import React from 'react';
+import debounce from 'debounce';
+import deepEqual from 'react-fast-compare';
 
 import Grid from './Grid';
 import ToolbarContainer, { ToolbarProps } from './ToolbarContainer';
@@ -222,9 +224,11 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   private _cachedColumns?: ColumnList;
   private _cachedComputedColumns?: ColumnList;
   private _metricRefresh?: number;
+  private _debounced: Function;
 
   constructor(props: DataGridProps) {
     super(props);
+    this._debounced = debounce(this.metricsUpdated, 500);
     const initialState: DataGridState = {
       columnMetrics: this.createColumnMetrics(),
       selectedRows: [],
@@ -240,8 +244,8 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   }
 
   componentDidMount() {
-    this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
-    window.addEventListener('resize', this.metricsUpdated);
+    this._metricRefresh = window.setInterval(this._debounced, 500);
+    window.addEventListener('resize', this._debounced as EventListener);
     if (this.props.cellRangeSelection) {
       window.addEventListener('mouseup', this.handleWindowMouseUp);
     }
@@ -250,7 +254,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
 
   componentWillUnmount() {
     clearInterval(this._metricRefresh);
-    window.removeEventListener('resize', this.metricsUpdated);
+    window.removeEventListener('resize', this._debounced as EventListener);
     window.removeEventListener('mouseup', this.handleWindowMouseUp);
   }
 
@@ -292,6 +296,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
 
   metricsUpdated = () => {
     const columnMetrics = this.createColumnMetrics();
+    if (deepEqual(this.state.columnMetrics, columnMetrics)) return // nothing changed
     this.setState({ columnMetrics });
   };
 
