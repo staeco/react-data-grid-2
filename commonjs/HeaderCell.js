@@ -119,7 +119,7 @@ var HeaderCell = /** @class */ (function (_super) {
     HeaderCell.prototype.removeScroll = function () {
         var node = this.cell.current;
         if (node) {
-            node.style.transform = null;
+            node.style.transform = '';
         }
     };
     HeaderCell.prototype.render = function () {

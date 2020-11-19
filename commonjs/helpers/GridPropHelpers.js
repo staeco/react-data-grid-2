@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fakeCellMetaData = void 0;
 var columns = [{
         idx: 0,
         key: 'id',

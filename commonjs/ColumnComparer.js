@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sameColumn = void 0;
 var react_is_1 = require("react-is");
 function sameColumn(a, b) {
     for (var k in a) {

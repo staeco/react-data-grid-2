@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var react_1 = tslib_1.__importDefault(require("react"));
-var debounce_1 = tslib_1.__importDefault(require("debounce"));
 var react_fast_compare_1 = tslib_1.__importDefault(require("react-fast-compare"));
 var Grid_1 = tslib_1.__importDefault(require("./Grid"));
 var ToolbarContainer_1 = tslib_1.__importDefault(require("./ToolbarContainer"));
@@ -251,7 +250,7 @@ var ReactDataGrid = /** @class */ (function (_super) {
             else {
                 var selectedRows = [];
                 for (var i = 0; i < _this.props.rowsCount; i++) {
-                    var row = tslib_1.__assign({}, _this.props.rowGetter(i), { isSelected: allRowsSelected });
+                    var row = tslib_1.__assign(tslib_1.__assign({}, _this.props.rowGetter(i)), { isSelected: allRowsSelected });
                     selectedRows.push(row);
                 }
                 _this.setState({ selectedRows: selectedRows });
@@ -260,7 +259,6 @@ var ReactDataGrid = /** @class */ (function (_super) {
                 }
             }
         };
-        _this._debounced = debounce_1.default(_this.metricsUpdated.bind(_this), 250);
         var initialState = {
             columnMetrics: _this.createColumnMetrics(),
             selectedRows: [],
@@ -275,8 +273,8 @@ var ReactDataGrid = /** @class */ (function (_super) {
         return _this;
     }
     ReactDataGrid.prototype.componentDidMount = function () {
-        this._metricRefresh = window.setInterval(this._debounced, 200);
-        window.addEventListener('resize', this._debounced);
+        this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
+        window.addEventListener('resize', this.metricsUpdated);
         if (this.props.cellRangeSelection) {
             window.addEventListener('mouseup', this.handleWindowMouseUp);
         }
@@ -284,7 +282,7 @@ var ReactDataGrid = /** @class */ (function (_super) {
     };
     ReactDataGrid.prototype.componentWillUnmount = function () {
         clearInterval(this._metricRefresh);
-        window.removeEventListener('resize', this._debounced);
+        window.removeEventListener('resize', this.metricsUpdated);
         window.removeEventListener('mouseup', this.handleWindowMouseUp);
     };
     ReactDataGrid.prototype.UNSAFE_componentWillReceiveProps = function (nextProps) {

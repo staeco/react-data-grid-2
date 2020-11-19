@@ -130,7 +130,7 @@ export default class HeaderCell extends React.Component<Props> {
   removeScroll() {
     const node = this.cell.current;
     if (node) {
-      node.style.transform = null;
+      node.style.transform = '';
     }
   }
 

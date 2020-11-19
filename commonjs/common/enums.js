@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Z_INDEXES = exports.DEFINE_SORT = exports.SCROLL_DIRECTION = exports.UpdateActions = exports.HeaderCellType = exports.HeaderRowType = exports.EventTypes = exports.DragItemTypes = exports.CellNavigationMode = exports.CellExpand = void 0;
 var CellExpand;
 (function (CellExpand) {
     CellExpand["DOWN_TRIANGLE"] = "\u25BC";

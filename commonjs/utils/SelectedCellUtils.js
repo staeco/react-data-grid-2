@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.selectedRangeIsSingleCell = exports.canExitGrid = exports.getNextSelectedCellPosition = exports.isSelectedCellEditable = exports.getSelectedCellValue = exports.getSelectedColumn = exports.getSelectedRangeDimensions = exports.getSelectedDimensions = exports.getSelectedRow = void 0;
 var tslib_1 = require("tslib");
 var enums_1 = require("../common/enums");
 var rowUtils = tslib_1.__importStar(require("../RowUtils"));
@@ -109,7 +110,7 @@ function getNextSelectedCellPosition(_a) {
             }
         }
     }
-    return tslib_1.__assign({}, nextPosition, { changeRowOrColumn: false });
+    return tslib_1.__assign(tslib_1.__assign({}, nextPosition), { changeRowOrColumn: false });
 }
 exports.getNextSelectedCellPosition = getNextSelectedCellPosition;
 function canExitGrid(event, _a) {

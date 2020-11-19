@@ -120,7 +120,7 @@ var InteractionMasks = /** @class */ (function (_super) {
             var rowIdxs = [startCell.rowIdx, cellPosition.rowIdx].sort(function (a, b) { return a - b; });
             var topLeft = { idx: colIdxs[0], rowIdx: rowIdxs[0] };
             var bottomRight = { idx: colIdxs[1], rowIdx: rowIdxs[1] };
-            var selectedRange = tslib_1.__assign({}, _this.state.selectedRange, { 
+            var selectedRange = tslib_1.__assign(tslib_1.__assign({}, _this.state.selectedRange), { 
                 // default the startCell to the selected cell, in case we've just started via keyboard
                 startCell: _this.state.selectedRange.startCell || _this.state.selectedPosition, 
                 // assign the new state - the bounds of the range, and the new cursor cell
@@ -138,7 +138,7 @@ var InteractionMasks = /** @class */ (function (_super) {
             });
         };
         _this.onSelectCellRangeEnded = function () {
-            var selectedRange = tslib_1.__assign({}, _this.state.selectedRange, { isDragging: false });
+            var selectedRange = tslib_1.__assign(tslib_1.__assign({}, _this.state.selectedRange), { isDragging: false });
             _this.setState({ selectedRange: selectedRange }, function () {
                 if (_this.props.onCellRangeSelectionCompleted) {
                     _this.props.onCellRangeSelectionCompleted(_this.state.selectedRange);
@@ -162,7 +162,7 @@ var InteractionMasks = /** @class */ (function (_super) {
                     e.dataTransfer.setData('text', transferData);
                 }
                 _this.setState({
-                    draggedPosition: tslib_1.__assign({}, selectedPosition, { overRowIdx: selectedPosition.rowIdx })
+                    draggedPosition: tslib_1.__assign(tslib_1.__assign({}, selectedPosition), { overRowIdx: selectedPosition.rowIdx })
                 });
             }
         };
@@ -170,7 +170,7 @@ var InteractionMasks = /** @class */ (function (_super) {
             _this.setState(function (_a) {
                 var draggedPosition = _a.draggedPosition;
                 if (draggedPosition) {
-                    return { draggedPosition: tslib_1.__assign({}, draggedPosition, { overRowIdx: overRowIdx }) };
+                    return { draggedPosition: tslib_1.__assign(tslib_1.__assign({}, draggedPosition), { overRowIdx: overRowIdx }) };
                 }
                 return null;
             });
@@ -389,17 +389,17 @@ var InteractionMasks = /** @class */ (function (_super) {
         var isCellAtRightBoundary = function (cell) { return cell.idx !== 0 && cell.idx >= colVisibleEndIdx - 1; };
         var isCellAtLeftBoundary = function (cell) { return cell.idx !== 0 && cell.idx <= colVisibleStartIdx + 1; };
         var ArrowDown = {
-            getNext: function (current) { return (tslib_1.__assign({}, current, { rowIdx: current.rowIdx + 1 })); },
+            getNext: function (current) { return (tslib_1.__assign(tslib_1.__assign({}, current), { rowIdx: current.rowIdx + 1 })); },
             isCellAtBoundary: isCellAtBottomBoundary,
             onHitBoundary: onHitBottomBoundary
         };
         var ArrowUp = {
-            getNext: function (current) { return (tslib_1.__assign({}, current, { rowIdx: current.rowIdx - 1 })); },
+            getNext: function (current) { return (tslib_1.__assign(tslib_1.__assign({}, current), { rowIdx: current.rowIdx - 1 })); },
             isCellAtBoundary: isCellAtTopBoundary,
             onHitBoundary: onHitTopBoundary
         };
         var ArrowRight = {
-            getNext: function (current) { return (tslib_1.__assign({}, current, { idx: current.idx + 1 })); },
+            getNext: function (current) { return (tslib_1.__assign(tslib_1.__assign({}, current), { idx: current.idx + 1 })); },
             isCellAtBoundary: isCellAtRightBoundary,
             onHitBoundary: function (next) {
                 onHitRightBoundary(next);
@@ -410,7 +410,7 @@ var InteractionMasks = /** @class */ (function (_super) {
             }
         };
         var ArrowLeft = {
-            getNext: function (current) { return (tslib_1.__assign({}, current, { idx: current.idx - 1 })); },
+            getNext: function (current) { return (tslib_1.__assign(tslib_1.__assign({}, current), { idx: current.idx - 1 })); },
             isCellAtBoundary: isCellAtLeftBoundary,
             onHitBoundary: function (next) {
                 onHitLeftBoundary(next);

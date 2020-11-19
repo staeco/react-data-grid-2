@@ -2,13 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var react_1 = tslib_1.__importDefault(require("react"));
-var debounce_1 = tslib_1.__importDefault(require("debounce"));
 var Canvas_1 = tslib_1.__importDefault(require("./Canvas"));
 var viewportUtils_1 = require("./utils/viewportUtils");
 var Viewport = /** @class */ (function (_super) {
     tslib_1.__extends(Viewport, _super);
-    function Viewport(props) {
-        var _this = _super.call(this, props) || this;
+    function Viewport() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.state = viewportUtils_1.getGridState(_this.props);
         _this.canvas = react_1.default.createRef();
         _this.viewport = react_1.default.createRef();
@@ -48,7 +47,6 @@ var Viewport = /** @class */ (function (_super) {
                 });
             }
         };
-        _this._debounced = debounce_1.default(_this.metricsUpdated.bind(_this), 250);
         return _this;
     }
     Viewport.prototype.getScroll = function () {
@@ -148,13 +146,13 @@ var Viewport = /** @class */ (function (_super) {
         }
     };
     Viewport.prototype.componentDidMount = function () {
-        this._metricRefresh = window.setInterval(this._debounced, 200);
-        window.addEventListener('resize', this._debounced);
+        this._metricRefresh = window.setInterval(this.metricsUpdated, 250);
+        window.addEventListener('resize', this.metricsUpdated);
         this.metricsUpdated();
     };
     Viewport.prototype.componentWillUnmount = function () {
         clearInterval(this._metricRefresh);
-        window.removeEventListener('resize', this._debounced);
+        window.removeEventListener('resize', this.metricsUpdated);
         this.clearScrollTimer();
     };
     Viewport.prototype.render = function () {

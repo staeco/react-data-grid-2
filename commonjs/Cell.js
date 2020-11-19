@@ -80,7 +80,7 @@ var Cell = /** @class */ (function (_super) {
     Cell.prototype.checkScroll = function () {
         var _a = this.props, scrollLeft = _a.scrollLeft, column = _a.column;
         var node = this.cell.current;
-        if (ColumnUtils_1.isFrozen(column) && node && node.style.transform != null) {
+        if (ColumnUtils_1.isFrozen(column) && node && node.style.transform) {
             this.setScrollLeft(scrollLeft);
         }
     };
@@ -93,7 +93,7 @@ var Cell = /** @class */ (function (_super) {
     Cell.prototype.removeScroll = function () {
         var node = this.cell.current;
         if (node) {
-            node.style.transform = null;
+            node.style.transform = '';
         }
     };
     Cell.prototype.getEvents = function () {

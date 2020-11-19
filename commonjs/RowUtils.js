@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isRowSelected = exports.get = void 0;
 function get(row, property) {
     if (typeof row.get === 'function') {
         return row.get(property);

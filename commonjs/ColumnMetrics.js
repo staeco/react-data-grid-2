@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sameColumns = exports.resizeColumn = exports.recalculate = exports.sameColumn = void 0;
 var tslib_1 = require("tslib");
 var ColumnComparer_1 = require("./ColumnComparer");
-exports.sameColumn = ColumnComparer_1.sameColumn;
+Object.defineProperty(exports, "sameColumn", { enumerable: true, get: function () { return ColumnComparer_1.sameColumn; } });
 var ColumnUtils_1 = require("./ColumnUtils");
 var getScrollbarSize_1 = tslib_1.__importDefault(require("./getScrollbarSize"));
 var utils_1 = require("./common/utils");

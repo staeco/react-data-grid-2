@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getColOverscanEndIdx = exports.getColOverscanStartIdx = exports.getRowOverscanEndIdx = exports.getRowOverscanStartIdx = exports.getScrollDirection = exports.getVisibleBoundaries = exports.getNonFrozenRenderedColumnCount = exports.getNonFrozenVisibleColStartIdx = exports.findLastFrozenColumnIndex = exports.getGridState = exports.OVERSCAN_ROWS = void 0;
 var ColumnUtils_1 = require("../ColumnUtils");
 var enums_1 = require("../common/enums");
 exports.OVERSCAN_ROWS = 2;

@@ -100,7 +100,7 @@ export default class Cell extends React.PureComponent<Props> implements CellRend
   checkScroll() {
     const { scrollLeft, column } = this.props;
     const node = this.cell.current;
-    if (isFrozen(column) && node && node.style.transform != null) {
+    if (isFrozen(column) && node && node.style.transform) {
       this.setScrollLeft(scrollLeft);
     }
   }
@@ -115,7 +115,7 @@ export default class Cell extends React.PureComponent<Props> implements CellRend
   removeScroll() {
     const node = this.cell.current;
     if (node) {
-      node.style.transform = null;
+      node.style.transform = '';
     }
   }
 

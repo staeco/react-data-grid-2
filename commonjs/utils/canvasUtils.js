@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getColumnScrollPosition = void 0;
 var ColumnUtils_1 = require("../ColumnUtils");
 function getColumnScrollPosition(columns, idx, currentScrollLeft, currentClientWidth) {
     var left = 0;

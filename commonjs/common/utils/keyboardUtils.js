@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isCtrlKeyHeldDown = exports.isKeyPrintable = void 0;
 function isKeyPrintable(keycode) {
     return (keycode > 47 && keycode < 58) // number keys
         || keycode === 32 || keycode === 13 // spacebar & return key(s) (if you want to allow carriage returns)

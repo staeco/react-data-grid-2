@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isFrozen = exports.canEdit = exports.getSize = void 0;
 function getSize(columns) {
     if (Array.isArray(columns)) {
         return columns.length;

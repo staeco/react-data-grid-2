@@ -154,7 +154,7 @@ var Canvas = /** @class */ (function (_super) {
     Canvas.prototype.renderCustomRowRenderer = function (props) {
         var ref = props.ref, otherProps = tslib_1.__rest(props, ["ref"]);
         var CustomRowRenderer = this.props.rowRenderer;
-        var customRowRendererProps = tslib_1.__assign({}, otherProps, { renderBaseRow: function (p) { return react_1.default.createElement(Row_1.default, tslib_1.__assign({ ref: ref }, p)); } });
+        var customRowRendererProps = tslib_1.__assign(tslib_1.__assign({}, otherProps), { renderBaseRow: function (p) { return react_1.default.createElement(Row_1.default, tslib_1.__assign({ ref: ref }, p)); } });
         if (react_is_1.isElement(CustomRowRenderer)) {
             if (CustomRowRenderer.type === Row_1.default) {
                 // In the case where Row is specified as the custom render, ensure the correct ref is passed
