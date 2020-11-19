@@ -228,7 +228,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
 
   constructor(props: DataGridProps) {
     super(props);
-    this._debounced = debounce(this.metricsUpdated, 250);
+    this._debounced = debounce(this.metricsUpdated.bind(this), 250);
     const initialState: DataGridState = {
       columnMetrics: this.createColumnMetrics(),
       selectedRows: [],

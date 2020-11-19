@@ -101,7 +101,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   
   constructor(props: ViewportProps) {
     super(props);
-    this._debounced = debounce(this.metricsUpdated, 250);
+    this._debounced = debounce(this.metricsUpdated.bind(this), 250);
   }
   onScroll = ({ scrollTop, scrollLeft }: ScrollPosition) => {
     const { rowHeight, rowsCount, onScroll } = this.props;
