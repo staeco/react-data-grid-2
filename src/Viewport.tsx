@@ -101,7 +101,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   
   constructor(props: ViewportProps) {
     super(props);
-    this._debounced = debounce(this.metricsUpdated, 500);
+    this._debounced = debounce(this.metricsUpdated, 250);
   }
   onScroll = ({ scrollTop, scrollLeft }: ScrollPosition) => {
     const { rowHeight, rowsCount, onScroll } = this.props;
@@ -192,7 +192,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
     }
 
     const { height } = this.viewport.current.getBoundingClientRect();
-    if (height === this.state.height) return // nothing changed
+    if (height === this.state.height) return; // nothing changed
     if (height) {
       const { scrollTop, scrollLeft } = this.state;
       const { rowHeight, rowsCount } = this.props;
@@ -245,7 +245,7 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   }
   
   componentDidMount() {
-    this._metricRefresh = window.setInterval(this._debounced, 500);
+    this._metricRefresh = window.setInterval(this._debounced, 200);
     window.addEventListener('resize', this._debounced as EventListener);
     this.metricsUpdated();
   }

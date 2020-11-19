@@ -228,7 +228,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
 
   constructor(props: DataGridProps) {
     super(props);
-    this._debounced = debounce(this.metricsUpdated, 500);
+    this._debounced = debounce(this.metricsUpdated, 250);
     const initialState: DataGridState = {
       columnMetrics: this.createColumnMetrics(),
       selectedRows: [],
@@ -244,7 +244,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
   }
 
   componentDidMount() {
-    this._metricRefresh = window.setInterval(this._debounced, 500);
+    this._metricRefresh = window.setInterval(this._debounced, 200);
     window.addEventListener('resize', this._debounced as EventListener);
     if (this.props.cellRangeSelection) {
       window.addEventListener('mouseup', this.handleWindowMouseUp);
@@ -296,7 +296,7 @@ export default class ReactDataGrid extends React.Component<DataGridProps, DataGr
 
   metricsUpdated = () => {
     const columnMetrics = this.createColumnMetrics();
-    if (deepEqual(this.state.columnMetrics, columnMetrics)) return // nothing changed
+    if (deepEqual(this.state.columnMetrics, columnMetrics)) return; // nothing changed
     this.setState({ columnMetrics });
   };
 
