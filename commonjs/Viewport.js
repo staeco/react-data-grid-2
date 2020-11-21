@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var react_1 = tslib_1.__importDefault(require("react"));
+var react_fast_compare_1 = tslib_1.__importDefault(require("react-fast-compare"));
+var lodash_pick_1 = tslib_1.__importDefault(require("lodash.pick"));
 var Canvas_1 = tslib_1.__importDefault(require("./Canvas"));
 var viewportUtils_1 = require("./utils/viewportUtils");
 var Viewport = /** @class */ (function (_super) {
@@ -33,8 +35,6 @@ var Viewport = /** @class */ (function (_super) {
                 return;
             }
             var height = _this.viewport.current.getBoundingClientRect().height;
-            if (height === _this.state.height)
-                return; // nothing changed
             if (height) {
                 var _a = _this.state, scrollTop = _a.scrollTop, scrollLeft = _a.scrollLeft;
                 var _b = _this.props, rowHeight = _b.rowHeight, rowsCount = _b.rowsCount;
@@ -102,6 +102,9 @@ var Viewport = /** @class */ (function (_super) {
     Viewport.prototype.updateScroll = function (scrollParams) {
         this.resetScrollStateAfterDelay();
         var nextScrollState = this.getNextScrollState(scrollParams);
+        var prevScrollState = lodash_pick_1.default(this.state, Object.keys(nextScrollState));
+        if (react_fast_compare_1.default(prevScrollState, nextScrollState))
+            return; // nothing changed
         this.setState(nextScrollState);
         return nextScrollState;
     };

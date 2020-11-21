@@ -1,4 +1,6 @@
 import React from 'react';
+import deepEqual from 'react-fast-compare';
+import pick from 'lodash.pick';
 
 import Canvas from './Canvas';
 import {
@@ -69,7 +71,7 @@ type SharedGridProps = Pick<GridProps,
 >;
 
 export interface ViewportProps extends SharedGridProps {
-  onScroll(scrollState: ScrollState): void;
+  onScroll(scrollState: ScrollState | undefined): void;
 }
 
 export interface ViewportState {
@@ -176,6 +178,8 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
   updateScroll(scrollParams: ScrollParams) {
     this.resetScrollStateAfterDelay();
     const nextScrollState = this.getNextScrollState(scrollParams);
+    const prevScrollState = pick(this.state, Object.keys(nextScrollState));
+    if (deepEqual(prevScrollState, nextScrollState)) return; // nothing changed
     this.setState(nextScrollState);
     return nextScrollState;
   }
@@ -186,7 +190,6 @@ export default class Viewport extends React.Component<ViewportProps, ViewportSta
     }
 
     const { height } = this.viewport.current.getBoundingClientRect();
-    if (height === this.state.height) return; // nothing changed
     if (height) {
       const { scrollTop, scrollLeft } = this.state;
       const { rowHeight, rowsCount } = this.props;
